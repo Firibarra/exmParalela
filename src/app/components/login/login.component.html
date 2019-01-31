@@ -1,26 +1,44 @@
 <div class="container">
 
-    <h2>Ingresa</h2>
-
     <div class="row">
         <div class="col-6 col-md-3">
 
         </div>
         <div class="col-6 col-md-6">
+            <form (ngSubmit)="logiar()" #forma="ngForm">
 
-            <img src="assets/img/Utem.jpg" class="img-fluid" alt="Responsive image">
+                <img src="assets/img/Utem.jpg" width="300" class="img-fluid" alt="Responsive image">
 
-            <input type="text" class="form-control" placeholder="Rut">
+                <div class="form-group row">
+                    <input name="rut" type="text" class="form-control" placeholder="Rut" required #rut="ngModel" [(ngModel)]="user.rut">
+                </div>
 
-            <input type="password" class="form-control" placeholder="Ingrese su clave">
-            <button type="button" class="btn-success btn-lg btn-block"> Ingresar
-            
-                </button>
+                <div class=" form-group row ">
+                    <input type="password" name="clave" class="form-control " placeholder="Ingrese su clave" required #clave="ngModel" [(ngModel)]="user.clave">
+                </div>
+
+                <div class="form-group row "></div>
+
+                <button [disabled]="!forma.valid" type="button " class="btn-success btn-lg btn-block "> Ingresar            
+            </button>
+            </form>
+
 
         </div>
-        <div class="col-6 col-md-3">
+        <div class="col-6 col-md-3 ">
+            <ul>
+                <li *ngFor="let pais of paises ">{{pais.name}}</li>
+
+            </ul>
 
         </div>
     </div>
 
 </div>
+
+<!--
+<input type="text " class="form-control " placeholder="Rut " #rut>
+<input type="password " class="form-control " placeholder="Ingrese su clave " #clave>
+    required #rut="ngModel " [(ngModel)]="usuario.rut "
+    (click)="Ingresar(rut.value , clave.value) " (keyup.enter)="Ingresar(rut.value , clave.value) "
+-->
