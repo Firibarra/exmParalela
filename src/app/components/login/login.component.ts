@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ServiciosService } from '../../services/servicios.service';
 import {NgForm, NgModel} from '@angular/forms';
 import {Login} from '../../interfaces/modelos.interface';
+import { first } from 'rxjs/operators';
 import { FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -13,11 +14,12 @@ import { FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  apiKey:string;
   paises: any[]=[];
 
   user:Login ={
     rut:"",
-    clave:""
+    password:""
   }
 
  
@@ -33,14 +35,11 @@ export class LoginComponent implements OnInit {
      }
  
 
-  Ingresar(rut:string, clave:string){    
-    //console.log(rut,clave);
+   logiar(){
     console.log(this.user);
-    this.router.navigate(['home']);
-    }
-  logiar(){
-    console.log(this.user);
-
+    this.servicio.ingresar(this.user);
+    
+    //this.router.navigate(['home']);
   }
 
   ngOnInit() {

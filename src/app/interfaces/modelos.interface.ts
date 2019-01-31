@@ -1,7 +1,7 @@
 
 export interface Login{
     rut:string;
-    clave:string;
-    akey?:string;
+    password:string;
+    apikey?:string;
    
 };
