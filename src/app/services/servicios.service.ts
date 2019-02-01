@@ -5,6 +5,8 @@ import {Observable} from 'rxjs/internal/Observable';
 import {map} from 'rxjs/operators';
 
 import 'rxjs';
+import { PARAMETERS } from '@angular/core/src/util/decorators';
+import { URLSearchParams } from 'url';
 //import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
 
 @Injectable({
@@ -47,19 +49,31 @@ export class ServiciosService {
     
       ))
   };
-
-
+  
+  
   getcursos(aik:string):Observable<any>{
     let headers = new HttpHeaders({'X-API-KEY':aik});
     return this.http.get<any>(this.URL+'/api/v1/courses/subjects/',{headers});
 }
-  getcursos2(aik:string){
+  rank_Anio(aik:string):Observable<any>
+  {
+    let headers = new HttpHeaders({'X-API-KEY':aik});
+    return this.http.get<any>(this.URL+'/api/v1/rankings/years/',{headers});
+  }
+  
+  rank_Anio_Curso(aik:string,parametro:string):Observable<any>
+  {
+    let headers = new HttpHeaders({'X-API-KEY':aik});
+    let params = new URLSearchParams({'subjectCode':parametro});
+    return this.http.get<any>(this.URL+'/api/v1/rankings/years/'+params,{headers});
+  }
+  /*getcursos2(aik:string){
     let headers =new HttpHeaders().set('X-API_KEY',aik);
     return this.http.get(this.URL+'api/v1/courses/subjects',{headers})
     .subscribe(data => {
       console.log(data);
     });
-  }
+  }*/
   
 
 

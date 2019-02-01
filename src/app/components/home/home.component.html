@@ -14,6 +14,7 @@
         </span>
     </div>
 </nav>
+<!--SELECCIONADOR-->
 <div class="controler">
     <select class="form-group" [(ngModel)]="codeSeled">
         <option *ngFor="let code of cursos " [value]="code.code">{{code.name}}</option>
@@ -21,8 +22,10 @@
     <br>
     <input type="text" [(ngModel)]="codeSeled">
     <hr>
-
+    <!--GRAFICO LINEA-->
+    <h2 class="center">Grafico</h2>
     <div class="row">
+
         <div class="col-md-6">
             <div style="display: block;">
                 <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
@@ -37,12 +40,9 @@
                     <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
                 </tr>
             </table>
-            <button (click)="randomize()">CLICK</button>
+            <button class="btn btn-primary btn-block" (click)="randomize()">CLICK</button>
         </div>
+
     </div>
-
-
-
-
 
 </div>

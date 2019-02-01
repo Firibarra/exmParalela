@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ServiciosService } from '../../services/servicios.service';
 import {NgForm, NgModel} from '@angular/forms';
 import { Login } from '../../interfaces/modelos.interface';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -16,46 +16,29 @@ import { FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
 export class HomeComponent implements OnInit {
   codeSeled:number;
   medifiText:string;
-  cursos:any[]= [];
-  algo:string;  
+  public años:Array<any> = [];
+  public promedio:Array<any> = [];
+  
+  public cursos:any[]= [];
+  public valores:any[]= [];
+  public fecha:Array<any>;
 
 
 
   public lineChartData:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
+    {data: [], label: 'Promedio Ranking Por Año'},
+    {data: [], label: 'Desviación Ranking Por Año '},
+    {data: [], label: 'Promedio Ranking Año Por Curso'},
+    {data: [], label: 'Desviación Ranking Año Por Curso'}
   ];
-  public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  //Años del Grafico y tabla
+  public lineChartLabels:Array<any> = ['2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010'];
+  public notas:Array<any> = [1,2,3,4];
+
   public lineChartOptions:any = {
   responsive: true
   };
-  public lineChartColors:Array<any> = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
-  ];
+  public lineChartColors:Array<any> = [];
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
  
@@ -87,9 +70,9 @@ export class HomeComponent implements OnInit {
 
       //this.servicio.getcursos();
     }
-
-
    
+
+      
 
   ngOnInit() { 
      this.servicio.getcursos(localStorage.getItem("key"))
@@ -97,8 +80,30 @@ export class HomeComponent implements OnInit {
         this.cursos= rest;
         console.log(rest);
       }) 
-      
+      this.servicio.rank_Anio(localStorage.getItem("key"))
+      .subscribe((data : any)=>{
+        console.log(data);
+        const año = data.map(data => data.year);
+        const promedio = data.map (data => data.average);
+        const desvia = data.map (data => data.stddev);
+        //AL Grafico
+        this.lineChartLabels.splice(0, this.lineChartLabels.length);
+        this.notas.splice(0, this.notas.length);
+        this.lineChartLabels = año;
+        this.notas= promedio;
+        this.lineChartData[0].data= this.notas;
+        this.lineChartData[1].data= desvia;
+        //this.lineChartData[0].label="AÑOS";
+        }
+        
+
+
+
+          
+       ) }
+
      
-  }
+      
+  
 
 }
