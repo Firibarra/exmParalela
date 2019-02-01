@@ -5,3 +5,9 @@ export interface Login{
     apikey?:string;
    
 };
+
+
+export interface Codigo{
+    codi:string;
+       
+};

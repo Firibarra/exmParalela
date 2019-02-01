@@ -27,24 +27,12 @@
         </div>
         <div class="col-6 col-md-3 ">
             <ul>
-                <li *ngFor="let pais of paises ">{{pais.name}}</li>
 
             </ul>
-            <select [(ngModel)]="codeSeled">
-                <option *ngFor="let code of cursos " [value]="code.code">{{code.name}}</option>
-            </select>
+
             <br>
-            <input type="text" [(ngModel)]="codeSeled">
-            <label>{{this.key}}</label>
 
         </div>
     </div>
 
 </div>
-
-<!--
-<input type="text " class="form-control " placeholder="Rut " #rut>
-<input type="password " class="form-control " placeholder="Ingrese su clave " #clave>
-    required #rut="ngModel " [(ngModel)]="usuario.rut "
-    (click)="Ingresar(rut.value , clave.value) " (keyup.enter)="Ingresar(rut.value , clave.value) "
--->

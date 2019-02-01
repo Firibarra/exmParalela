@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ServiciosService } from '../../services/servicios.service';
 import {NgForm, NgModel} from '@angular/forms';
-import { Login } from '../../interfaces/modelos.interface';
+import { Login, Codigo } from '../../interfaces/modelos.interface';
 import { first, map } from 'rxjs/operators';
 import { FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -18,8 +18,12 @@ export class HomeComponent implements OnInit {
   medifiText:string;
   public años:Array<any> = [];
   public promedio:Array<any> = [];
+  cod:Codigo ={
+    codi:""
+  };
   
   public cursos:any[]= [];
+  public cursos2:any[]= [];
   public valores:any[]= [];
   public fecha:Array<any>;
 
@@ -33,7 +37,9 @@ export class HomeComponent implements OnInit {
   ];
   //Años del Grafico y tabla
   public lineChartLabels:Array<any> = ['2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010'];
+  //Arreglo auxiliar para poder rellenar la data
   public notas:Array<any> = [1,2,3,4];
+  public notas1:Array<any> = [1,2,3,4];
 
   public lineChartOptions:any = {
   responsive: true
@@ -68,10 +74,28 @@ export class HomeComponent implements OnInit {
     private http:HttpClient,
     public servicio: ServiciosService) { 
 
-      //this.servicio.getcursos();
     }
    
+  rankin_code(aux:string)
+  {
+    console.log("ENTRO A LA FUNCION");
+    console.log(aux);
+    this.servicio.rank_Anio_Curso(localStorage.getItem("key"),aux).subscribe((data:any)=>{
+      this.cursos2=data;
+      console.log(data);
+      const año1 = data.map(data => data.year);
+      const promedio1 = data.map (data => data.average);
+      const desvia1 = data.map (data => data.stddev);
+      //Al grafico
+      //this.lineChartLabels.splice(0, this.lineChartLabels.length);
+      this.notas1.splice(0, this.notas.length);
+      this.lineChartLabels = año1;
+      this.notas1= promedio1;
+      this.lineChartData[2].data= this.notas1;
+      this.lineChartData[3].data= desvia1;
 
+    })
+  }
       
 
   ngOnInit() { 
