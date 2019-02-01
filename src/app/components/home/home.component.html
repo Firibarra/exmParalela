@@ -15,12 +15,11 @@
     </div>
 </nav>
 <div class="controler">
-    <select class="form-group" name="">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
+    <select class="form-group" [(ngModel)]="codeSeled">
+        <option *ngFor="let code of cursos " [value]="code.code">{{code.name}}</option>
     </select>
+    <br>
+    <input type="text" [(ngModel)]="codeSeled">
     <hr>
 
     <div class="row">

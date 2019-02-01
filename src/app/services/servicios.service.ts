@@ -12,8 +12,11 @@ import 'rxjs';
 })
 export class ServiciosService {
   URL:String = "https://api.sebastian.cl/academia/";
+   // URL:String = "138.68.23.14/";
 
-  ip:any[]=[];
+  IP:any[]=[];
+  
+  
   
 
   constructor(private http: HttpClient) { 
@@ -33,23 +36,32 @@ export class ServiciosService {
     let headers =new HttpHeaders({
       'Content-Type':'application/json'
     });
-
     return this.http.post(this.URL+'api/v1/authentication/authenticate',body,{headers})
     .pipe(map((res: any )=>{ 
-      this.ip=res.apikey;
-      console.log(this.ip);
-      console.log(res);    
-      return res;          
+      this.IP= res.apikey ;
+      console.log("EN EL SERVICE primero es IP");
+      console.log(this.IP);
+      console.log(res);
+      return res;
     }
     
       ))
   };
-  
+
+
+  getcursos(aik:string):Observable<any>{
+    let headers = new HttpHeaders({'X-API-KEY':aik});
+    return this.http.get<any>(this.URL+'/api/v1/courses/subjects/',{headers});
+}
+  getcursos2(aik:string){
+    let headers =new HttpHeaders().set('X-API_KEY',aik);
+    return this.http.get(this.URL+'api/v1/courses/subjects',{headers})
+    .subscribe(data => {
+      console.log(data);
+    });
+  }
   
 
-  agregarIp(){
-    console.log("Agregar IPK")
-  }
 
   /*saveKey(){
     return this.http.post(this.URL+'api/v1/authentication/authenticate',body,{headers:this.headers})

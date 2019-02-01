@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import {Router} from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { ServiciosService } from '../../services/servicios.service';
+import {NgForm, NgModel} from '@angular/forms';
+import { Login } from '../../interfaces/modelos.interface';
+import { first } from 'rxjs/operators';
+import { FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-home',
@@ -6,6 +14,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  codeSeled:number;
+  medifiText:string;
+  cursos:any[]= [];
+  algo:string;  
+
+
 
   public lineChartData:Array<any> = [
     {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
@@ -67,9 +81,24 @@ export class HomeComponent implements OnInit {
 
   
 
-  constructor() { }
+  constructor(private router:Router,
+    private http:HttpClient,
+    public servicio: ServiciosService) { 
 
-  ngOnInit() {
+      //this.servicio.getcursos();
+    }
+
+
+   
+
+  ngOnInit() { 
+     this.servicio.getcursos(localStorage.getItem("key"))
+      .subscribe((rest : any) =>{
+        this.cursos= rest;
+        console.log(rest);
+      }) 
+      
+     
   }
 
 }
