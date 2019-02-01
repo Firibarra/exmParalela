@@ -1,30 +1,3 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand">Navbar w/ text</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-        </ul>
-        <span class="navbar-text">
-            Navbar text with an inline element
-          </span>
-    </div>
-</nav>
-
-
-
-
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,8 +17,9 @@
 <!--SELECCIONADOR-->
 <div class="controler">
     <div class="form-group row">
-
-        <label for="inputState">Seleccionar un curso</label>
+        <div ALIGN="center">
+            <label for="inputState">Seleccionar un curso</label>
+        </div>
         <select class="form-control" [(ngModel)]="codeSeled" (selectionChange)="rankin_code(codeSeled)">
                 <option *ngFor="let code of cursos " [value]="code.code">{{code.name}}</option>
             </select>
@@ -53,6 +27,9 @@
     <br>
     <input type="text" name="cod" [(ngModel)]="codeSeled" (click)="rankin_code($event.target.value)">
     <hr>
+    <div ALIGN="center">
+        <h1><u>Estadistica de Cursos</u> </h1>
+    </div>
     <!--GRAFICO LINEA
     (change)="onChange($event.target.value)"-->
     <h2 class="center">Grafico</h2>
@@ -72,14 +49,8 @@
                     <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
                 </tr>
             </table>
-            <button class="btn btn-primary btn-block" (click)="randomize()">COMPARAR</button>
         </div>
 
     </div>
 
 </div>
-<!--#cod="ngModel" [(ngModel)]="cod.codigo"
-
-<form (ngSubmit)="rankin_code()" #forma="ngForm">
-
--->

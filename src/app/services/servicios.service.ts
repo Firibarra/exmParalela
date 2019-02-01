@@ -23,7 +23,7 @@ export class ServiciosService {
     "Content-Type": "application/json"
   });
 
-  
+  //funcion para 
   ingresar(user: Login) {
     let body1 = JSON.stringify(user);
     let body = JSON.parse(body1);
@@ -41,14 +41,14 @@ export class ServiciosService {
         })
       );
   }
-
-  getcursos(aik: string): Observable<any> {
+//Metodo Get para obtener los cursos
+  getcursos(aik: string){
     let headers = new HttpHeaders({ "X-API-KEY": aik });
     return this.http.get<any>(this.URL + "/api/v1/courses/subjects/", {
       headers
     });
   }
-  rank_Anio(aik: string): Observable<any> {
+  rank_Anio(aik: string){
     let headers = new HttpHeaders({ "X-API-KEY": aik });
     return this.http.get<any>(this.URL + "/api/v1/rankings/years/", {
       headers
@@ -63,25 +63,5 @@ export class ServiciosService {
       { headers }
     );
   }
-  /*getcursos2(aik:string){
-    let headers =new HttpHeaders().set('X-API_KEY',aik);
-    return this.http.get(this.URL+'api/v1/courses/subjects',{headers})
-    .subscribe(data => {
-      console.log(data);
-    });
-  }*/
-
-  /*saveKey(){
-    return this.http.post(this.URL+'api/v1/authentication/authenticate',body,{headers:this.headers})
-    .pipe(map(data =>data));
-  }*/
-
-  /*ingresar(user:Login){
-    let body =JSON.stringify(user);
-    return this.http.post(this.URL,body)
-    .map(res =>{
-      console.log(res);
-      return res;
-    })
-  };*/
+  
 }

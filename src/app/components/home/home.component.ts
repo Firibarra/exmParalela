@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   public fecha:Array<any>;
 
 
-
+//funciones de los graficos Chain
   public lineChartData:Array<any> = [
     {data: [], label: 'Promedio Ranking Por Año'},
     {data: [], label: 'Desviación Ranking Por Año '},
@@ -78,7 +78,6 @@ export class HomeComponent implements OnInit {
    
   rankin_code(aux:string)
   {
-    console.log("ENTRO A LA FUNCION");
     console.log(aux);
     this.servicio.rank_Anio_Curso(localStorage.getItem("key"),aux).subscribe((data:any)=>{
       this.cursos2=data;
@@ -86,8 +85,8 @@ export class HomeComponent implements OnInit {
       const año1 = data.map(data => data.year);
       const promedio1 = data.map (data => data.average);
       const desvia1 = data.map (data => data.stddev);
-      //Al grafico
-      //this.lineChartLabels.splice(0, this.lineChartLabels.length);
+      //Envia los datos al grafico
+      
       this.notas1.splice(0, this.notas.length);
       this.lineChartLabels = año1;
       this.notas1= promedio1;
@@ -99,6 +98,7 @@ export class HomeComponent implements OnInit {
       
 
   ngOnInit() { 
+    //Al partir la pagina carga los datos del curso los cuales los pasa al select
      this.servicio.getcursos(localStorage.getItem("key"))
       .subscribe((rest : any) =>{
         this.cursos= rest;
@@ -117,7 +117,6 @@ export class HomeComponent implements OnInit {
         this.notas= promedio;
         this.lineChartData[0].data= this.notas;
         this.lineChartData[1].data= desvia;
-        //this.lineChartData[0].label="AÑOS";
         }
         
 
